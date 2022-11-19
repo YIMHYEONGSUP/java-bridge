@@ -34,7 +34,9 @@ public class OutputView {
     public void inputToMove() {
         System.out.println(INPUT_TO_MOVE.message());
     }
-
+    public void inputtedToMove(String move) {
+        System.out.println(move);
+    }
     /*
     * 게임 재시작/종료 탐색 안내 문구 출력
     * */
