@@ -1,9 +1,43 @@
 package bridge;
 
+import static bridge.GameMessage.*;
+
 /**
  * 사용자에게 게임 진행 상황과 결과를 출력하는 역할을 한다.
  */
 public class OutputView {
+
+    /*
+     * 게임 시작 메세지 출력
+     * */
+    public void startMessage() {
+        System.out.println(START_GAME);
+    }
+
+    /*
+    * 다리 길이 입력 안내 문구 출력
+    * */
+    public void inputBridgeSize() {
+        System.out.println(INPUT_BRIDGE_SIZE);
+    }
+
+    /*
+    * 이동할 칸 입력 안내 문구 출력
+    * */
+    public void inputToMove() {
+        System.out.println(INPUT_TO_MOVE);
+    }
+
+    /*
+    * 게임 재시작/종료 탐색 안내 문구 출력
+    * */
+    public void inputReGame() {
+        System.out.println(INPUT_REGAME);
+    }
+
+
+
+
 
     /**
      * 현재까지 이동한 다리의 상태를 정해진 형식에 맞춰 출력한다.
