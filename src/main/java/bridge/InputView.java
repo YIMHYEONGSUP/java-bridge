@@ -14,7 +14,7 @@ public class InputView {
      */
     public int readBridgeSize() {
         String input = Console.readLine();
-        validation(input);
+        validationBridgeSize(input);
         return Integer.parseInt(input);
     }
 
@@ -24,7 +24,7 @@ public class InputView {
     * 정상 : 입력 받은 문자열 숫자로 변환 후 출력
     * 비정상 : IllegalArgumentException 반환 , 에러메세지 '[ERROR]' 출력
     * */
-    private void validation(String input) {
+    private void validationBridgeSize(String input) {
         if (! Pattern.matches("\\d?\\d", input)) {
             System.out.println(ExceptionMessages.INVALID_BRIDGE_SIZE.message());
             throw new IllegalArgumentException("[ERROR]");
@@ -40,7 +40,18 @@ public class InputView {
      * 사용자가 이동할 칸을 입력받는다.
      */
     public String readMoving() {
-        return null;
+        String input = Console.readLine();
+        if (validationMove(input)) {
+            return input;
+        }
+        throw new IllegalArgumentException("[ERROR]");
+    }
+
+    private boolean validationMove(String input) {
+        if (input.equals("U") || input.equals("D")) {
+            return true;
+        }
+        return false;
     }
 
     /**
