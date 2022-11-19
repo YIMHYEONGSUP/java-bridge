@@ -29,3 +29,8 @@
   - [x] 이동 칸 입력 시 에외 문구
   - [x] 게임 재시작/종료 여부 입력 예외 문구 
 
+---
+
+# 이슈 사항
+
+### 1. 입력 기능 테스트 시 Console.readLine() 으로 인한 NoSuchElementException
