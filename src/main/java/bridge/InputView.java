@@ -14,26 +14,37 @@ public class InputView {
      */
     public int readBridgeSize() {
         String input = Console.readLine();
-        validationBridgeSize(input);
+        try {
+            validationBridgeSize(input);
+        } catch (IllegalArgumentException e) {
+            System.out.println("[ERROR]");
+            readBridgeSize();
+        }
         return Integer.parseInt(input);
     }
 
-    /**
-    * 입력받은 다리 길이 검증.
-    * 조건 : 한자리 또는 두자리 숫자 , 3 이상 20 이하 의 숫자
-    * 정상 : 입력 받은 문자열 숫자로 변환 후 출력
-    * 비정상 : IllegalArgumentException 반환 , 에러메세지 '[ERROR]' 출력
-    * */
-    private void validationBridgeSize(String input) {
-        if (! Pattern.matches("\\d?\\d", input)) {
-            System.out.println(ExceptionMessages.INVALID_BRIDGE_SIZE.message());
-            throw new IllegalArgumentException("[ERROR]");
+    private boolean validationBridgeSize(String input) throws IllegalArgumentException{
+        if (validationBridgeSizeType(input) ){
+            if (validationBridgeSizeRange(input)) {
+                return true;
+            }
         }
-        int bridgeSize = Integer.parseInt(input);
-        if (bridgeSize > 20 || bridgeSize < 3) {
-            System.out.println(ExceptionMessages.INVALID_BRIDGE_SIZE.message());
-            throw new IllegalArgumentException("[ERROR]");
+        throw new IllegalArgumentException();
+    }
+
+    private boolean validationBridgeSizeRange(String input) {
+        int bridgeRange = Integer.parseInt(input);
+        if (bridgeRange >= 3 && bridgeRange <= 20) {
+            return true;
         }
+        return false;
+    }
+
+    private boolean validationBridgeSizeType(String input) {
+        if (Pattern.matches("\\d?\\d", input)) {
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -41,23 +52,41 @@ public class InputView {
      */
     public String readMoving() {
         String input = Console.readLine();
-        if (validationMove(input)) {
-            return input;
+        try {
+            validationMoving(input);
+        } catch (IllegalArgumentException e) {
+            readMoving();
+            System.out.println("[ERROR]");
         }
-        throw new IllegalArgumentException("[ERROR]");
+        return input;
     }
 
-    private boolean validationMove(String input) {
+    private boolean validationMoving(String input) throws IllegalArgumentException{
         if (input.equals("U") || input.equals("D")) {
             return true;
         }
-        return false;
+        throw new IllegalArgumentException();
     }
+
 
     /**
      * 사용자가 게임을 다시 시도할지 종료할지 여부를 입력받는다.
      */
     public String readGameCommand() {
-        return null;
+        String input = Console.readLine();
+        try {
+            validationReGame(input);
+        } catch (IllegalArgumentException e) {
+            System.out.println("[ERROR]");
+            readGameCommand();
+        }
+        return input;
+    }
+
+    private boolean validationReGame(String input) {
+        if (input.equals("R") || input.equals("Q")) {
+            return true;
+        }
+        return false;
     }
 }
