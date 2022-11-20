@@ -19,22 +19,24 @@ public class BridgeMaker {
      * @return 입력받은 길이에 해당하는 다리 모양. 위 칸이면 "U", 아래 칸이면 "D"로 표현해야 한다.
      */
     public List<String> makeBridge(int size) {
-        List<String> bridge = new ArrayList<>();
+        List<String> list = new ArrayList<>();
         while (size-- > 0) {
-            bridge.add(makeSquare());
+            int squares = bridgeNumberGenerator.generate();
+            list.add(squaresValue(squares));
         }
-        return bridge;
+        return list;
     }
 
-    private String makeSquare() {
+    private String squaresValue(int squares) {
         String square = "";
-        int squareType = new BridgeRandomNumberGenerator().generate();
-        if (squareType == 0) {
-            square = "D";
-        }
-        if (squareType == 1) {
+        if (squares == 1) {
             square = "U";
+        }
+        if (squares == 0) {
+            square = "D";
         }
         return square;
     }
+
+
 }
