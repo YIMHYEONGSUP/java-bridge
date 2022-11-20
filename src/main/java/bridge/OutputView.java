@@ -1,5 +1,9 @@
 package bridge;
 
+import java.util.List;
+import java.util.Stack;
+import java.util.concurrent.atomic.AtomicReference;
+
 import static bridge.GameMessage.*;
 
 /**
@@ -54,7 +58,34 @@ public class OutputView {
      * <p>
      * 출력을 위해 필요한 메서드의 인자(parameter)는 자유롭게 추가하거나 변경할 수 있다.
      */
-    public void printMap() {
+    public void printMap(List<String> bridge , int index) {
+        String up = "[";
+        String down = "[";
+
+        for (int i = 0; i < index; i++) {
+            String square = bridge.get(i);
+
+            if (square.equals("U")) {
+                up += " O ";
+                down += "   ";
+            }
+
+            if (square.equals("D")) {
+                down += " O ";
+                up += "   ";
+            }
+
+            if (index >= 2 && i < index-1) {
+                up += "|";
+                down += "|";
+            }
+        }
+
+        up += "]";
+        down += "]";
+
+        System.out.println(up);
+        System.out.println(down);
     }
 
     /**
