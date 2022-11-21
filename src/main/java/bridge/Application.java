@@ -30,7 +30,7 @@ public class Application {
     private static int[] startGame(List<String> bridge) {
         int count = 1;
         int result = 0;
-        while (true) {
+        while (result != bridge.size()) {
             result = runGame(bridge);
             if (result == bridge.size()) {
                 break;
@@ -46,10 +46,11 @@ public class Application {
     private static boolean finishGame(int result) {
         inputReGame();
         String reGame = ReGame();
-        if (reGame.equals("Q")) {
-            return true;
+        BridgeGame bridgeGame = new BridgeGame();
+        if (bridgeGame.retry(reGame)) {
+            return false;
         }
-        return false;
+        return true;
     }
 
     private static String ReGame() {
@@ -69,25 +70,32 @@ public class Application {
             String move = move();
             boolean square = bridgeGame.move(bridge, move, index++);
             printMove(bridge , index);
-            String reGame = invalidSquare(square);
-            if(reGame.equals("R")){
-                index = 0;
-            }
-            if (reGame.equals("Q") || index == bridge.size()) {
+            if (invalidSquare(square)) {
                 break;
             }
+                index = 0;
         }
         return index;
     }
 
-    private static String invalidSquare(boolean square) {
-        OutputView outputView = new OutputView();
-        InputView inputView = new InputView();
-        if (!square) {
-            outputView.inputReGame();
-            return inputView.readGameCommand();
+    private static boolean invalidSquare(boolean square) {
+        BridgeGame bridgeGame = new BridgeGame();
+        printRetry();
+        String retry = inputRetry();
+        if (bridgeGame.retry(retry)) {
+            return false;
         }
-        return "";
+      return true;
+    }
+
+    private static String inputRetry() {
+        InputView inputView = new InputView();
+        return inputView.readGameCommand();
+    }
+
+    private static void printRetry() {
+        OutputView outputView = new OutputView();
+        outputView.inputReGame();
     }
 
     private static void printMove(List<String> bridge , int index) {
